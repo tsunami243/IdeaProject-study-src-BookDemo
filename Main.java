@@ -1,15 +1,17 @@
 package BookDemo;
 
-public class Main {
-    public static void main(String[] args) {
-        ThreadLocal<String> local = new InheritableThreadLocal<>();
-        Thread t = new Thread(() -> {
-            local.set("lbwnb");
+import java.util.*;
 
-            new Thread(() -> {
-                System.out.println(local.get());
-            }).start();
-        });
-        t.start();
+public class Main {
+    public static void main(String[] args) throws InterruptedException {
+        Thread bbb = Thread.ofVirtual()
+                .name("bbb")
+                .unstarted(() -> {
+                    System.out.println("我是虚拟线程" + Thread.currentThread().getName());
+                });
+        bbb.start();
+        bbb.join();
+
+
     }
 }
